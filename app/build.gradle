@@ -36,6 +36,17 @@ dependencies {
 
     // This dependency is used by the application.
     implementation libs.guava
+
+    // 引入 servlet
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
+    // 引入Junit
+    testImplementation 'junit:junit:4.12'
+    // 引入 JDBC
+    implementation 'mysql:mysql-connector-java:8.0.27'
+
+    // 引入 Tomcat
+    implementation 'org.apache.tomcat.embed:tomcat-embed-core:9.0.54'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
