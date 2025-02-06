@@ -1,0 +1,13 @@
+之前的代码实现了 基本的 Visitor 模式，
+但是还有一些问题，比如说，如果我们要增加一个新的压缩功能，
+那么我们就需要修改 TextFile 类（新增一个public void accept(Compressor compressor)），
+这样就违反了开闭原则
+
+
+那我们可以继续抽象， 把 Compressor 和 Extractor 的动作抽象成一个 Visitor 接口，里面定义一组重载的visit 方法，只有资源类型参数不一样
+然后，Compressor 和 Extractor 继承 Visitor 接口，分别对不同类型的资源做不同的操作
+
+
+相应的，资源里面不再面向具体编程，而是面向接口编程
+accept 方法传入 Visitor 接口（方法名都抽象为 visit，参数是具体的资源类型），然后调用 Visitor 的 visit 方法，传入自己 this
+
