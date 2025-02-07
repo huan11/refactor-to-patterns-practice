@@ -9,6 +9,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'maven-publish'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 publishing {
@@ -47,23 +48,45 @@ dependencies {
 
     // 引入 Tomcat
     implementation 'org.apache.tomcat.embed:tomcat-embed-core:9.0.54'
+
+    // 引入dom4j
+    implementation 'org.dom4j:dom4j:2.1.3'
+
+    // 引入org.openjfx
+    implementation 'org.openjfx:javafx-controls:17.0.2'
+    implementation 'org.openjfx:javafx-fxml:17.0.2'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.App'
+    mainClass = 'org.example.mediator.Client'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+javafx {
+    // 指定版本
+    version = '17.0.2'
+    // 指定模块
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
+run {
+    jvmArgs = [
+        '--add-modules', 'javafx.controls,javafx.fxml,javafx.graphics',
+        '--add-exports', 'javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+        '--add-exports', 'javafx.graphics/com.sun.glass.ui.mac=ALL-UNNAMED'
+    ]
 }
 
 
