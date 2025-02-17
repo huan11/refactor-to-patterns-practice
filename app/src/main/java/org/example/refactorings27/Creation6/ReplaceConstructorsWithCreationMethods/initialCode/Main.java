@@ -18,8 +18,7 @@ public class Main {
         int riskRating = 3;
         LocalDateTime maturity = LocalDateTime.now();
 
-        Loan termLoan = new Loan(riskAdjustedCapitalStrategy, commitment,
-                outstanding, riskRating, maturity, null);
+        Loan termLoan = Loan.createTermLoan(riskAdjustedCapitalStrategy, commitment, outstanding, riskRating, maturity);
 
     }
 
