@@ -1,4 +1,4 @@
-package org.example.refactorings27.Creation6.ReplaceConstructorsWithCreationMethods.initialCode;
+package org.example.refactorings27.Creation6.ReplaceConstructorsWithCreationMethods.myWork;
 
 import java.time.LocalDateTime;
 
@@ -26,13 +26,13 @@ public class Loan {
         this(capitalStrategy, commitment, 0.00, riskRating, maturity, expiry);
     }
 
-    public Loan(CapitalStrategy capitalStrategy, double commitment, double outstanding, int riskRating, LocalDateTime maturity, LocalDateTime expiry) {
+    private Loan(CapitalStrategy capitalStrategy, double commitment, double outstanding, int riskRating, LocalDateTime maturity, LocalDateTime expiry) {
         this.commitment = commitment;
         this.outstanding = outstanding;
         this.riskRating = riskRating;
         this.maturity = maturity;
         this.expiry = expiry;
-
+        
         if (capitalStrategy == null) {
             if (expiry == null) {
                 this.capitalStrategy = new CapitalStrategyTermLoan();
@@ -44,6 +44,15 @@ public class Loan {
         } else {
             this.capitalStrategy = capitalStrategy;
         }
+    }
+
+    public static Loan createTermLoan(double commitment, int riskRating, LocalDateTime maturity) {
+        return new Loan(commitment, 0.00, riskRating, maturity, null);
+    }
+
+    public static Loan createTermLoan(CapitalStrategy riskAdjustedCapitalStrategy, double commitment, double outstanding, int riskRating, LocalDateTime maturity) {
+        return new Loan(riskAdjustedCapitalStrategy, commitment,
+                outstanding, riskRating, maturity, null);
     }
 
     public CapitalStrategy getCapitalStrategy() {
