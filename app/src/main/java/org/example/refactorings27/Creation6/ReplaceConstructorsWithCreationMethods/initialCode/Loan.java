@@ -32,8 +32,7 @@ public class Loan {
         this.riskRating = riskRating;
         this.maturity = maturity;
         this.expiry = expiry;
-        this.capitalStrategy = capitalStrategy;
-
+        
         if (capitalStrategy == null) {
             if (expiry == null) {
                 this.capitalStrategy = new CapitalStrategyTermLoan();
@@ -42,6 +41,8 @@ public class Loan {
             } else {
                 this.capitalStrategy = new CapitalStrategyRCTL();
             }
+        } else {
+            this.capitalStrategy = capitalStrategy;
         }
     }
 
