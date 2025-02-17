@@ -3,7 +3,7 @@
 
 ## Creation 6
 
-19 Replace Constructors with Creation Methods [DOING]
+19 Replace Constructors with Creation Methods [DONE]
 
 15 Move Creation Knowledge to Factory
 
