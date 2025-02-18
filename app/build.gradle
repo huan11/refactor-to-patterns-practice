@@ -55,6 +55,9 @@ dependencies {
     // 引入org.openjfx
     implementation 'org.openjfx:javafx-controls:17.0.2'
     implementation 'org.openjfx:javafx-fxml:17.0.2'
+
+    // 引入 lombok
+    implementation 'org.projectlombok:lombok:1.18.22'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

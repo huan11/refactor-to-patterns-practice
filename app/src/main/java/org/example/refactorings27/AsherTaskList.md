@@ -5,7 +5,7 @@
 
 19 Replace Constructors with Creation Methods [DONE]
 
-15 Move Creation Knowledge to Factory
+15 Move Creation Knowledge to Factory [DOING]
 
 3 Encapsulate Classes with Factory
 
