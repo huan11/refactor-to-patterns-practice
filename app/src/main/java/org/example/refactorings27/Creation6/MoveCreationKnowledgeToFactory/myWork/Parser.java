@@ -2,12 +2,13 @@ package org.example.refactorings27.Creation6.MoveCreationKnowledgeToFactory.myWo
 
 // Parser.java
 public class Parser {
-    private boolean shouldDecodeStringNodes = false;
     private StringParser stringParser;
 
     public Parser() {
         this.stringParser = new StringParser(this);
     }
+
+    private boolean shouldDecodeStringNodes = false;
 
     public void setDecodeStringNodes(boolean shouldDecode) {
         this.shouldDecodeStringNodes = shouldDecode;

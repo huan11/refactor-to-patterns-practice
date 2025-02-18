@@ -9,8 +9,8 @@ public class StringParser {
     }
 
     public Node findString(StringBuffer textBuffer, int textBegin, int textEnd) {
-        boolean shouldDecode = parser.shouldDecodeStringNodes();
         // 创建 StringNode 实例
-        return StringNode.createStringNode(textBuffer, textBegin, textEnd, shouldDecode);
+        NodeFactory nodeFactory = new NodeFactory();
+        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.shouldDecodeStringNodes());
     }
 }
