@@ -143,8 +143,14 @@
 
       2. Inline class to merge NodeFactory with StringNodeParsing-Option.
 
+         * 移花接木（修改路由）
          * // Step 1 Move the Factory creation method to middle class
          * // Step 2 route the call of creation method to middle class
+         * 
+         * 清理现场
+         * delete the Factory method (not used by others)
+         2. rename middle class to Factory
+         3. rename parser's(who called the middle class before) factory get and set method
 
       
 

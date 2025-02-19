@@ -2,18 +2,18 @@ package org.example.refactorings27.Creation6.MoveCreationKnowledgeToFactory.myWo
 
 // Parser.java
 public class Parser {
-    private StringNodeParsingOption stringNodeParsingOption = new StringNodeParsingOption();
+    private NodeFactory stringNodeParsingOption = new NodeFactory();
     private StringParser stringParser;
 
     public Parser() {
         this.stringParser = new StringParser(this);
     }
 
-    public StringNodeParsingOption getStringNodeParsingOption() {
+    public NodeFactory getNodeFactory() {
         return stringNodeParsingOption;
     }
 
-    public void setStringNodeParsingOption(StringNodeParsingOption option) {
+    public void setNodeFactory(NodeFactory option) {
         stringNodeParsingOption = option;
     }
 

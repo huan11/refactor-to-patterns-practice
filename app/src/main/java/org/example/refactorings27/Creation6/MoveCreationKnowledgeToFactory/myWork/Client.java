@@ -10,9 +10,9 @@ public class Client {
 
     public void setDecodeStringNodes(boolean shouldDecode) {
         //parser.setDecodeStringNodes(shouldDecode);
-        StringNodeParsingOption decodeNodes = new StringNodeParsingOption();
+        NodeFactory decodeNodes = new NodeFactory();
         decodeNodes.setDecodeStringNodes(shouldDecode);
-        parser.setStringNodeParsingOption(decodeNodes);
+        parser.setNodeFactory(decodeNodes);
     }
 
     public void parse(String url) {

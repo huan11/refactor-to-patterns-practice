@@ -13,7 +13,7 @@ public class StringParser {
 //        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.getStringNodeParsingOption().shouldDecodeStringNodes());
 
         // Step 2 route the call of creation method to middle class
-        return parser.getStringNodeParsingOption().createStringNode(textBuffer, textBegin, textEnd);
+        return parser.getNodeFactory().createStringNode(textBuffer, textBegin, textEnd);
 
     }
 }

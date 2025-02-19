@@ -5,8 +5,8 @@ public class DecodingNodeTest {
 
     public void testDecodeAmpersand(){
          // parser.setDecodeStringNodes(true);
-        StringNodeParsingOption decodeNodes = new StringNodeParsingOption();
+        NodeFactory decodeNodes = new NodeFactory();
         decodeNodes.setDecodeStringNodes(true);
-        parser.setStringNodeParsingOption(decodeNodes);
+        parser.setNodeFactory(decodeNodes);
     }
 }
