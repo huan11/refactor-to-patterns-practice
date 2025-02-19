@@ -9,8 +9,11 @@ public class StringParser {
     }
 
     public Node findString(StringBuffer textBuffer, int textBegin, int textEnd) {
-        // 创建 StringNode 实例
-        NodeFactory nodeFactory = new NodeFactory();
-        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.getStringNodeParsingOption().shouldDecodeStringNodes());
+//        NodeFactory nodeFactory = new NodeFactory();
+//        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.getStringNodeParsingOption().shouldDecodeStringNodes());
+
+        // Step 2 route the call of creation method to middle class
+        return parser.getStringNodeParsingOption().createStringNode(textBuffer, textBegin, textEnd);
+
     }
 }

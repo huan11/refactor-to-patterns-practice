@@ -13,4 +13,12 @@ public class StringNodeParsingOption {
     public boolean shouldDecodeStringNodes() {
         return shouldDecodeStringNodes;
     }
+
+    // Step 1 Move the Factory creation method to middle class
+    public Node createStringNode(StringBuffer textBuffer, int textBegin, int textEnd) {
+        if (shouldDecodeStringNodes) {
+            return new DecodingStringNode(new StringNode(textBuffer, textBegin, textEnd));
+        }
+        return new StringNode(textBuffer, textBegin, textEnd);
+    }
 }
