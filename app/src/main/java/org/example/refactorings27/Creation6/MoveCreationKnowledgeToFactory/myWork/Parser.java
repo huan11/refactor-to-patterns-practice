@@ -2,20 +2,19 @@ package org.example.refactorings27.Creation6.MoveCreationKnowledgeToFactory.myWo
 
 // Parser.java
 public class Parser {
+    private StringNodeParsingOption stringNodeParsingOption = new StringNodeParsingOption();
     private StringParser stringParser;
 
     public Parser() {
         this.stringParser = new StringParser(this);
     }
 
-    private boolean shouldDecodeStringNodes = false;
-
-    public void setDecodeStringNodes(boolean shouldDecode) {
-        this.shouldDecodeStringNodes = shouldDecode;
+    public StringNodeParsingOption getStringNodeParsingOption() {
+        return stringNodeParsingOption;
     }
 
-    public boolean shouldDecodeStringNodes() {
-        return shouldDecodeStringNodes;
+    public void setStringNodeParsingOption(StringNodeParsingOption option) {
+        stringNodeParsingOption = option;
     }
 
     public void parse(String url) {

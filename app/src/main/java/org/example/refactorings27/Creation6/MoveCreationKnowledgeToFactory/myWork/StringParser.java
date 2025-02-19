@@ -11,6 +11,6 @@ public class StringParser {
     public Node findString(StringBuffer textBuffer, int textBegin, int textEnd) {
         // 创建 StringNode 实例
         NodeFactory nodeFactory = new NodeFactory();
-        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.shouldDecodeStringNodes());
+        return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.getStringNodeParsingOption().shouldDecodeStringNodes());
     }
 }
