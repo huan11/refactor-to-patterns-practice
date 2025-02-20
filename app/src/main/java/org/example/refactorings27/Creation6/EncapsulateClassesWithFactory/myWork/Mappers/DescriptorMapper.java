@@ -13,13 +13,27 @@ public class DescriptorMapper {
     protected List<AttributeDescriptor> createAttributeDescriptors() {
         List<AttributeDescriptor> result = new ArrayList<>();
 
-        result.add(new DefaultDescriptor("remoteId", getDescriptorClass(), Integer.class));
+        /** 提取方法 练习
+         * 对参数先 extract variable，不是hardcode
+         * 然后 extract method，这样可以保证函数有参数
+         * 最后 inline variable
+         */
+
+        result.add(forInteger("remoteId", getDescriptorClass()));
         result.add(new DefaultDescriptor("createdDate", getDescriptorClass(), Date.class));
         result.add(new DefaultDescriptor("lastChangedDate", getDescriptorClass(), Date.class));
         result.add(new ReferenceDescriptor("createdBy", getDescriptorClass(), User.class));
         result.add(new ReferenceDescriptor("lastChangedBy", getDescriptorClass(), User.class));
         result.add(new DefaultDescriptor("optimisticLockVersion", getDescriptorClass(), Integer.class));
         return result;
+    }
+
+    /**
+     * 1 不需要的参数可以内联 inline parameter
+     * 2 方法返回值
+     */
+    private static DefaultDescriptor forInteger(String remoteId, Class<?> descriptorClass) {
+        return new DefaultDescriptor(remoteId, descriptorClass, Integer.class);
     }
 
     private Class<?> getDescriptorClass() {
