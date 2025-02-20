@@ -1,0 +1,3 @@
+the knowledge for creating an object is spread out across numerous classes
+
+Creation sprawl, which is a case of the Solution Sprawl smell (43), tends to result from an earlier design problem.

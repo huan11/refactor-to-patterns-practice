@@ -156,119 +156,69 @@
 
 > ![image-20250220063034852](./img/image-20250220063034852.png)
 
-Why ?
-
-1.  can’t simply move this code into the NodeFactory because clients of this code are clients of the parser which call Parser methods like setNodeDecoding(…) to configure the parser for a given parse.
-
-2. NodeFactory is not even visible to parser clients: it is instantiated by StringParser, which itself is not visible to parser clients.
-
-=============
-How ?
-1. Extract Class
-
-   * 【Parser】move the shouldDecodeNodes field, getter, and setter  to new class 【StringNodeParsingOption】
-
-     Before
-
-     ```
-     public class Parser {
-     		....
-     
-         private boolean shouldDecodeStringNodes = false;
-     
-         public void setDecodeStringNodes(boolean shouldDecode) {
-             this.shouldDecodeStringNodes = shouldDecode;
-         }
-     
-         public boolean shouldDecodeStringNodes() {
-             return shouldDecodeStringNodes;
-         }
-     }
-     ```
-
-     
-
-     After
-
-     [Parser] replaces the shouldDecodeNodes field, getter, and setter with a StringNodeParsingOption field and its getter and setter
-
-     ```
-     public class Parser {
-         private StringNodeParsingOption stringNodeParsingOption = new StringNodeParsingOption();
-     
-         public StringNodeParsingOption getStringNodeParsingOption() {
-             return stringNodeParsingOption;
-         }
-     
-         public void setStringNodeParsingOption(StringNodeParsingOption option) {
-             stringNodeParsingOption = option;
-         }
-     
-     ```
-
-     
-
-     [StringNodeParsingOption] new class
-
-     ```
-     public class StringNodeParsingOption {
-         public boolean shouldDecodeStringNodes = false;
-     
-         public StringNodeParsingOption() {
-         }
-     
-         public void setDecodeStringNodes(boolean shouldDecode) {
-             this.shouldDecodeStringNodes = shouldDecode;
-         }
-     
-         public boolean shouldDecodeStringNodes() {
-             return shouldDecodeStringNodes;
-         }
-     }
-     ```
-
-     [StringParser] The StringParser now obtains the state of the StringNode decoding option by  means of the new class
-
-     Before
-
-     ```
-     public Node findString(StringBuffer textBuffer, int textBegin, int textEnd) {
-             // 创建 StringNode 实例
-             NodeFactory nodeFactory = new NodeFactory();
-             return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.shouldDecodeStringNodes()); //修改的位置
-         }
-     ```
-
-     After
-
-     ```
-     public Node findString(StringBuffer textBuffer, int textBegin, int textEnd) {
-             // 创建 StringNode 实例
-             NodeFactory nodeFactory = new NodeFactory();
-             return nodeFactory.createStringNode(textBuffer, textBegin, textEnd, parser.getStringNodeParsingOption().shouldDecodeStringNodes());
-         }
-     ```
-
-     
 
 
-* 【DecodingNodeTest/Client】clients(DecodingNodeTest) now turn StringNode decoding on by instantiating and configuring a StringNodeParsingOption instance and **passing** it to the parser
-
-  Before
-
-  ````
-  parser.setDecodeStringNodes(true);
-  ````
 
 
-  After
+开始：parser 维护 影响StringNode 创建的因素：private boolean shouldDecodeStringNodes = false;
 
-  ```
-  StringNodeParsingOption decodeNodes = new StringNodeParsingOption();
-  decodeNodes.setDecodeStringNodes(true);
-  parser.setStringNodeParsingOption(decodeNodes);
-  ```
+最后：parser 维护StringNode的工厂，相关的知识（boolean shouldDecodeStringNodes）都移动到了 Factory ，参数不需要传来传去了，直接调用工厂的方法就可以了
 
-  
 
-2. Inline Class （merge NodeFactory with StringNodeParsingOption. ）
+
+
+
+encapsulate both creation logic and a client’s instantiation/configuration preferences
+
+
+
+
+
+思考的几个问题：
+
+> the parser’s StringParser actually creates StringNode
+>
+> objects, and when it does so, it configures them to decode or not decode, **based on**
+>
+> **the value of the decoding field in Parser.**
+
+
+
+1. who perform instantiation of Node ？
+
+   StringParser
+
+2. who knows creation knowledge ？（who should not know the knowledge？）
+
+   * Parser
+
+     Parser has the responsibility of kicking off a parsing session, not controlling how StringNodes(which represent just one of numerous Node and Tag types) ought to be parsed.
+
+   * StringParser
+
+   * StringNode
+
+     the StringNode class also had no good reason to know anything about decoding or escape character removal options, which have already been modeled using the Decorator pattern 
+
+   > ![image-20250220080004472](./img/image-20250220080004472.png)
+
+3. which creation code should be moved to Factory ？
+
+   Bad smell: pass **an argument** to the NodeFactory during StringNode creation
+
+   Why need pass ? Factory dont own the knowledge 
+
+   ![image-20250220080308206](./img/image-20250220080308206.png)
+
+
+
+
+
+技术难点：
+
+1. 如何移动知识？
+   1. 中间人
+      1. replaces the shouldDecodeNodes field, getter, and setter with a StringNodeParsingOption field and its getter and setter:
+      2. merge creation method with knowledge
+      3. change route （remove param）
+   2. 清理战场
