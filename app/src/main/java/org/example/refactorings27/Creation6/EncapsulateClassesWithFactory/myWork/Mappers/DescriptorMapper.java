@@ -19,25 +19,20 @@ public class DescriptorMapper {
          * 最后 inline variable
          */
 
-        result.add(forInteger("remoteId", getDescriptorClass()));
+        result.add(AttributeDescriptor.forInteger("remoteId", getDescriptorClass()));
         result.add(new DefaultDescriptor("createdDate", getDescriptorClass(), Date.class));
         result.add(new DefaultDescriptor("lastChangedDate", getDescriptorClass(), Date.class));
         result.add(new ReferenceDescriptor("createdBy", getDescriptorClass(), User.class));
         result.add(new ReferenceDescriptor("lastChangedBy", getDescriptorClass(), User.class));
-        result.add(new DefaultDescriptor("optimisticLockVersion", getDescriptorClass(), Integer.class));
+        //result.add(new DefaultDescriptor("optimisticLockVersion", getDescriptorClass(), Integer.class));
+        result.add(AttributeDescriptor.forInteger("optimisticLockVersion", getDescriptorClass()));
         return result;
-    }
-
-    /**
-     * 1 不需要的参数可以内联 inline parameter
-     * 2 方法返回值
-     * 3 go to DefaultDescriptor class and use `Use Interface Where Possible`
-     */
-    private static AttributeDescriptor forInteger(String remoteId, Class<?> descriptorClass) {
-        return new DefaultDescriptor(remoteId, descriptorClass, Integer.class);
     }
 
     private Class<?> getDescriptorClass() {
         return DescriptorMapper.class;
+    }
+    public void test(){
+
     }
 } 
