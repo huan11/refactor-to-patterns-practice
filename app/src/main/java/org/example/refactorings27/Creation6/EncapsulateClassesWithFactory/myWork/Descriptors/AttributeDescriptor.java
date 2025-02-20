@@ -1,5 +1,9 @@
 package org.example.refactorings27.Creation6.EncapsulateClassesWithFactory.myWork.Descriptors;
 
+import org.example.refactorings27.Creation6.EncapsulateClassesWithFactory.myWork.Domain.User;
+
+import java.util.Date;
+
 public abstract class AttributeDescriptor {
     private final String descriptorName;
     private final Class<?> mapperType;
@@ -18,6 +22,14 @@ public abstract class AttributeDescriptor {
      */
     public static AttributeDescriptor forInteger(String remoteId, Class<?> descriptorClass) {
         return new DefaultDescriptor(remoteId, descriptorClass, Integer.class);
+    }
+
+    public static AttributeDescriptor forDate(String createdDate, Class<?> descriptorClass) {
+        return new DefaultDescriptor(createdDate, descriptorClass, Date.class);
+    }
+
+    public static AttributeDescriptor forUser(String createdBy, Class<?> descriptorClass) {
+        return new ReferenceDescriptor(createdBy, descriptorClass, User.class);
     }
 
     public String getDescriptorName() {
