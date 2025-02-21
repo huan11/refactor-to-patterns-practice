@@ -46,7 +46,7 @@
 
 15 Move Creation Knowledge to Factory[DONE]
 
-3 Encapsulate Classes with Factory
+3 Encapsulate Classes with Factory [DONE]
 
 11 Introduce Polymorphic Creation with Factory Method
 
