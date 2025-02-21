@@ -4,3 +4,9 @@ Bad smell: implement a method similarly, except for an object creation step
 2. pull up field
 3. pull up dependency method
 4. pull up target similar method
+
+
+
+TODO
+1. IDEA 提取 super class 的时候，能不能直接提取成 abstract class
+2. pull up method 到 abstract class 的时候，能不能自动修改权限修饰符

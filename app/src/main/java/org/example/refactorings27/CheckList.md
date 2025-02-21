@@ -48,9 +48,9 @@
 
 3 Encapsulate Classes with Factory [DONE]
 
-11 Introduce Polymorphic Creation with Factory Method
+11 Introduce Polymorphic Creation with Factory Method [DONE]
 
-4 Encapsulate Composite with Builder
+4 Encapsulate Composite with Builder []
 
 9 Inline Singleton
 
