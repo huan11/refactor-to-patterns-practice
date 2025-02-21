@@ -1,6 +1,6 @@
 package org.example.refactorings27.Creation6.IntroducePolymorphicCreationWithFactoryMethod.myWork;
 
-import java.lang.RuntimeException;
+
 
 public class XMLBuilder extends OutputBuilder {
     public XMLBuilder(String root) {
