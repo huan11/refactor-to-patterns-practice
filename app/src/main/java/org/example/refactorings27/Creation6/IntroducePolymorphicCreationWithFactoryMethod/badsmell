@@ -1,0 +1,6 @@
+Bad smell: implement a method similarly, except for an object creation step
+
+1. extract super class AbstractBuilderTest
+2. pull up field
+3. pull up dependency method
+4. pull up target similar method
