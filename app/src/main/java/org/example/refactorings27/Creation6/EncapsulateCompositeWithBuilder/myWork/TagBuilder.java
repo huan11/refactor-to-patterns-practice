@@ -41,5 +41,10 @@ public class TagBuilder {
         }
         return null;
     }
-    
+    public void addAttribute(String attribute, String value) {
+        currentNode.addAttribute(attribute, value);
+    }
+    public void addValue(String value) {
+        currentNode.addValue(value);
+    }
 }
