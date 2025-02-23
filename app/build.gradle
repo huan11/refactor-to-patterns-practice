@@ -37,6 +37,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // XMLUnit for XML comparison
+    testImplementation 'org.xmlunit:xmlunit-core:2.9.1'
+    testImplementation 'org.xmlunit:xmlunit-matchers:2.9.1'
+
     // This dependency is used by the application.
     implementation libs.guava
 
