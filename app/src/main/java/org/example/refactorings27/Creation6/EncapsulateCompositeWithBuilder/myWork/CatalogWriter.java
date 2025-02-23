@@ -2,16 +2,14 @@ package org.example.refactorings27.Creation6.EncapsulateCompositeWithBuilder.myW
 
 public class CatalogWriter {
     public String catalogXmlFor(Activity activity) {
-        TagNode activityTag = new TagNode("activity");
+        TagBuilder builder = new TagBuilder("activity");
         
         // Create flavors tag
-        TagNode flavorsTag = new TagNode("flavors");
-        activityTag.add(flavorsTag);
+        builder.addChild("flavors");
         
         // Process each flavor
         for (int i = 0; i < activity.getFlavorCount(); i++) {
-            TagNode flavorTag = new TagNode("flavor");
-            flavorsTag.add(flavorTag);
+            builder.addToParent("flavors", "flavor");
             
             Flavor flavor = activity.getFlavor(i);
             
@@ -20,18 +18,15 @@ public class CatalogWriter {
             int requirementsCount = requirements.length;
             
             if (requirementsCount > 0) {
-                TagNode requirementsTag = new TagNode("requirements");
-                flavorTag.add(requirementsTag);
+                builder.addChild("requirements");
                 
                 for (int r = 0; r < requirementsCount; r++) {
                     Requirement requirement = requirements[r];
-                    TagNode requirementTag = new TagNode("requirement");
-                    requirementTag.addValue(requirement.getName());
-                    requirementsTag.add(requirementTag);
+                    builder.addToParent("requirements", "requirement");
                 }
             }
         }
         
-        return activityTag.toString();
+        return builder.toXml();
     }
-} 
+}
