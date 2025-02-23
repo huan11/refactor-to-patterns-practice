@@ -1,21 +1,33 @@
 package org.example.refactorings27.Creation6.EncapsulateCompositeWithBuilder.myWork;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class TagNode {
     private StringBuilder attributes;
     private List<TagNode> children = new ArrayList<>();
     private String name;
     private String value = "";
+    private TagNode parent;
+    public TagNode getParent() {
+        return parent;
+    }
+
+    public void setParent(TagNode parent) {
+        this.parent = parent;
+    }
 
     public TagNode(String name) {
         this.name = name;
         this.attributes = new StringBuilder();
     }
 
-    public void add(TagNode tagNode) {
-        this.children.add(tagNode);
+    public void add(TagNode childNode) {
+        childNode.setParent(this);
+        this.children.add(childNode);
     }
 
     public void addAttribute(String attribute, String value) {
@@ -49,4 +61,6 @@ public class TagNode {
               
         return result.toString();
     }
-} 
+
+
+}
