@@ -35,25 +35,25 @@ public class TagBuilderTest {
                 "</flavors>";
         assertXmlEquals(expectedXml, builder.toXml());
     }
-//
-//    @Test
-//    public void testBuildChildrenOfChildren() {
-//        String expectedXml =
-//                "<flavors>" +
-//                        "<flavor>" +
-//                                "<requirements>" +
-//                                        "<requirement/>" +
-//                                "</requirements>" +
-//                        "</flavor>" +
-//                "</flavors>";
-//
-//        TagBuilder builder = new TagBuilder("flavors");
-//        builder.addChild("flavor");
-//        builder.addChild("requirements");
-//        builder.addChild("requirement");
-//        String actualXml = builder.toXml();
-//        assertXmlEquals(expectedXml, actualXml);
-//    }
+
+    @Test
+    public void testBuildChildrenOfChildren() {
+        String expectedXml =
+                "<flavors>" +
+                        "<flavor>" +
+                                "<requirements>" +
+                                        "<requirement/>" +
+                                "</requirements>" +
+                        "</flavor>" +
+                "</flavors>";
+
+        TagBuilder builder = new TagBuilder("flavors");
+        builder.addChild("flavor");
+        builder.addChild("requirements");
+        builder.addChild("requirement");
+        String actualXml = builder.toXml();
+        assertXmlEquals(expectedXml, actualXml);
+    }
 //
 //    @Test
 //    @Disabled("This test is not implemented yet")
