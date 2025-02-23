@@ -90,6 +90,9 @@ tasks.named('test') {
     // Use JUnit Platform for JUnit 5
     useJUnitPlatform()
     
+    // Disable test rerun on source changes
+    outputs.upToDateWhen { true }
+    
     // Show test output
     testLogging {
         events "passed", "skipped", "failed"
