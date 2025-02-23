@@ -60,6 +60,15 @@ public class Loan {
         return 0.0;
     }
 
+
+
+    private double outstandingRiskAmount() {
+        return outstanding;
+    }
+    private double unusedRiskAmount() {
+        return (commitment - outstanding);
+    }
+
     public double duration() {
         if (expiry == null && maturity != null) {
             return weightedAverageDuration();
@@ -86,6 +95,9 @@ public class Loan {
         return duration;
     }
 
+
+
+
     private double yearsTo(Date endDate) {
         Date beginDate = (today == null ? start : today);
         return (double) ((endDate.getTime() - beginDate.getTime()) / MILLIS_PER_DAY / DAYS_PER_YEAR);
@@ -93,6 +105,10 @@ public class Loan {
 
     private double riskFactor() {
         return RiskFactor.getFactors().forRating(riskRating);
+    }
+
+    private double unusedRiskFactor() {
+        return UnusedRiskFactors.getFactors().forRating(riskRating);
     }
 
     private double getUnusedPercentage() {
@@ -103,15 +119,6 @@ public class Loan {
         this.unusedPercentage = unusedPercentage;
     }
 
-    private double unusedRiskAmount() {
-        return (commitment - outstanding);
-    }
 
-    private double unusedRiskFactor() {
-        return UnusedRiskFactors.getFactors().forRating(riskRating);
-    }
 
-    private double outstandingRiskAmount() {
-        return outstanding;
-    }
 } 
