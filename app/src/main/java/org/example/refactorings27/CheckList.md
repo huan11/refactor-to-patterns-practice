@@ -50,9 +50,9 @@
 
 11 Introduce Polymorphic Creation with Factory Method [DONE]
 
-4 Encapsulate Composite with Builder []
+4 Encapsulate Composite with Builder [DONE]
 
-9 Inline Singleton
+9 Inline Singleton [DONE]
 
 ## Simplification 6
 
