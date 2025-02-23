@@ -101,7 +101,7 @@ public class TagBuilderTest {
 
         TagBuilder builder = new TagBuilder("flavors");
         for (int i=0; i<2; i++) {
-            builder.addChild("flavor");
+            builder.addToParent("flavors", "flavor");
             builder.addChild("requirements");
             builder.addChild("requirement");
         }
