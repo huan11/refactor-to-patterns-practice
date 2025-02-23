@@ -25,16 +25,16 @@ public class TagBuilderTest {
         assertXmlEquals(expectedXml, actualXml);
     }
 
-//    @Test
-//    public void testBuildNodeWithChild() {
-//        TagBuilder builder = new TagBuilder("flavors");
-//        builder.addChild("flavor");
-//        String expectedXml =
-//                "<flavors>" +
-//                        "<flavor/>" +
-//                "</flavors>";
-//        assertXmlEquals(expectedXml, builder.toXml());
-//    }
+    @Test
+    public void testBuildNodeWithChild() {
+        TagBuilder builder = new TagBuilder("flavors");
+        builder.addChild("flavor");
+        String expectedXml =
+                "<flavors>" +
+                        "<flavor/>" +
+                "</flavors>";
+        assertXmlEquals(expectedXml, builder.toXml());
+    }
 //
 //    @Test
 //    public void testBuildChildrenOfChildren() {
