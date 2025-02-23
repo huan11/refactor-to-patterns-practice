@@ -82,4 +82,29 @@ public class TagBuilderTest {
         String actualXml = builder.toXml();
         assertXmlEquals(expectedXml, actualXml);
     }
+
+    @Test
+    public void testRepeatingChildrenAndGrandchildren() {
+        String expectedXml =
+                "<flavors>" +
+                        "<flavor>" +
+                                "<requirements>" +
+                                        "<requirement/>" +
+                                "</requirements>" +
+                        "</flavor>" +
+                        "<flavor>" +
+                                "<requirements>" +
+                                        "<requirement/>" +
+                                "</requirements>" +
+                        "</flavor>" +
+                "</flavors>";
+
+        TagBuilder builder = new TagBuilder("flavors");
+        for (int i=0; i<2; i++) {
+            builder.addChild("flavor");
+            builder.addChild("requirements");
+            builder.addChild("requirement");
+        }
+        assertXmlEquals(expectedXml, builder.toXml());
+    }
 } 
