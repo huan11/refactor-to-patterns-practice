@@ -10,6 +10,7 @@ plugins {
     id 'application'
     id 'maven-publish'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'java'
 }
 
 publishing {
@@ -30,9 +31,10 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation libs.junit.jupiter
-
+    // Use JUnit 5 for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // This dependency is used by the application.
@@ -41,8 +43,6 @@ dependencies {
     // 引入 servlet
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
 
-    // 引入Junit
-    testImplementation 'junit:junit:4.12'
     // 引入 JDBC
     implementation 'mysql:mysql-connector-java:8.0.27'
 
@@ -58,6 +58,8 @@ dependencies {
 
     // 引入 lombok
     implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -72,9 +74,24 @@ application {
     mainClass = 'org.example.mediator.Client'
 }
 
+sourceSets {
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
+
 tasks.named('test') {
-    // Use JUnit Platform for unit tests.
+    // Use JUnit Platform for JUnit 5
     useJUnitPlatform()
+    
+    // Show test output
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = true
+    }
 }
 
 javafx {
