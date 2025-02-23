@@ -151,4 +151,23 @@ public class TagBuilderTest {
 
         assertXmlEquals(expectedXml, builder.toXml());
     }
+
+    @Test
+    public void testToStringBufferSize() {
+        String expected = 
+            "<requirements>" +
+                "<requirement type='software'>" +
+                    "IDE" +
+                "</requirement>" +
+            "</requirements>";
+
+        TagBuilder builder = new TagBuilder("requirements");
+        builder.addChild("requirement");
+        builder.addAttribute("type", "software");
+        builder.addValue("IDE");
+
+        int stringSize = builder.toXml().length();
+        int computedSize = builder.bufferSize();
+        assertEquals(stringSize, computedSize);
+    }
 } 
