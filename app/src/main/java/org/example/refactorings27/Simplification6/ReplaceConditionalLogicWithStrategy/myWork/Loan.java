@@ -17,7 +17,7 @@ public class Loan {
     private double riskRating;
     private double unusedPercentage;
 
-    public Loan(double commitment, double notSureWhatThisIs, Date start, Date expiry, Date maturity, int riskRating) {
+    public Loan(double commitment, double notSureWhatThisIs, Date start, Date expiry, Date maturity, int riskRating, CapitalStrategy capitalStrategy) {
         this.expiry = expiry;
         this.commitment = commitment;
         this.today = null;
@@ -25,20 +25,20 @@ public class Loan {
         this.maturity = maturity;
         this.riskRating = riskRating;
         this.unusedPercentage = 1.0;
-        capitalStrategy = new CapitalStrategy();
+        this.capitalStrategy = capitalStrategy;
     }
 
     public static Loan newTermLoan(double commitment, Date start, Date maturity, int riskRating) {
-        return new Loan(commitment, commitment, start, null, maturity, riskRating);
+        return new Loan(commitment, commitment, start, null, maturity, riskRating, new CapitalStrategy());
     }
 
     public static Loan newRevolver(double commitment, Date start, Date expiry, int riskRating) {
-        return new Loan(commitment, 0, start, expiry, null, riskRating);
+        return new Loan(commitment, 0, start, expiry, null, riskRating, new CapitalStrategy());
     }
 
     public static Loan newAdvisedLine(double commitment, Date start, Date expiry, int riskRating) {
         if (riskRating > 3) return null;
-        Loan advisedLine = new Loan(commitment, 0, start, expiry, null, riskRating);
+        Loan advisedLine = new Loan(commitment, 0, start, expiry, null, riskRating, new CapitalStrategy());
         advisedLine.setUnusedPercentage(0.1);
         return advisedLine;
     }
