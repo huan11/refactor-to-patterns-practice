@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Loan {
+    private final CapitalStrategy capitalStrategy;
     private double commitment = 1.0;
     private Date expiry;
     private Date maturity;
@@ -24,6 +25,7 @@ public class Loan {
         this.maturity = maturity;
         this.riskRating = riskRating;
         this.unusedPercentage = 1.0;
+        capitalStrategy = new CapitalStrategy();
     }
 
     public static Loan newTermLoan(double commitment, Date start, Date maturity, int riskRating) {
@@ -46,14 +48,14 @@ public class Loan {
     }
 
     public double capital() {
-        return new CapitalStrategy().capital(this);
+        return capitalStrategy.capital(this);
     }
 
 
 
 
     public double duration() {
-        return new CapitalStrategy().duration(this);
+        return capitalStrategy.duration(this);
     }
 
 
