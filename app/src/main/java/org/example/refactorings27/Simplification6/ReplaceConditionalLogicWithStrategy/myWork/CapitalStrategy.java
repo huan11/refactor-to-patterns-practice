@@ -23,31 +23,10 @@ public abstract class CapitalStrategy {
 
 
     public double duration(Loan loan) {
-//        if (expiry == null && maturity != null) {
-        if (loan.getExpiry() == null && loan.getMaturity() != null) {
-            return weightedAverageDuration(loan);
-        } else if (loan.getExpiry()  != null && loan.getMaturity() == null) {
-            return yearsTo(loan.getExpiry(),loan);
-        }
-        return 0.0;
+        return yearsTo(loan.getExpiry(),loan);
     }
 
-    private double weightedAverageDuration(Loan loan) {
-        double duration = 0.0;
-        double weightedAverage = 0.0;
-        double sumOfPayments = 0.0;
 
-        for (Payment payment : loan.getPayments()) {
-            sumOfPayments += payment.getAmount();
-            weightedAverage += yearsTo(payment.getDate(),loan) * payment.getAmount();
-        }
-
-        if (loan.getCommitment() != 0.0) {
-            duration = weightedAverage / sumOfPayments;
-        }
-
-        return duration;
-    }
 
     protected double yearsTo(Date endDate, Loan loan) {
         Date beginDate = (loan.getToday() == null ? loan.getStart() : loan.getToday());
