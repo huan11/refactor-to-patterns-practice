@@ -1,4 +1,4 @@
-package org.example.refactorings27.Simplification6.ReplaceConditionalLogicWithStrategy.initialCode;
+package org.example.refactorings27.Simplification6.ReplaceConditionalLogicWithStrategy.myWork;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,7 +86,16 @@ public class Loan {
         return (double) ((endDate.getTime() - beginDate.getTime()) / MILLIS_PER_DAY / DAYS_PER_YEAR);
     }
 
+    double outstandingRiskAmount(Loan loan) {
+        return loan.getOutstanding();
+    }
 
+    double unusedRiskAmount(Loan loan) {
+        return (loan.getCommitment() - loan.getOutstanding());
+    }
+    double getUnusedPercentage(Loan loan) {
+        return loan.getUnusedPercentage();
+    }
 
 
 
@@ -96,5 +105,27 @@ public class Loan {
     }
 
 
+    public double getOutstanding() {
+        return outstanding;
+    }
 
-} 
+    public Date getExpiry() {
+        return expiry;
+    }
+
+    public Date getMaturity() {
+        return maturity;
+    }
+
+    public double getCommitment() {
+        return commitment;
+    }
+
+    public double getRiskRating() {
+        return riskRating;
+    }
+
+    public double getUnusedPercentage() {
+        return unusedPercentage;
+    }
+}

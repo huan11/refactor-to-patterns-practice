@@ -1,19 +1,16 @@
 package org.example.refactorings27.Simplification6.ReplaceConditionalLogicWithStrategy.myWork;
 
-import org.example.refactorings27.Simplification6.ReplaceConditionalLogicWithStrategy.initialCode.Payment;
-import org.example.refactorings27.Simplification6.ReplaceConditionalLogicWithStrategy.initialCode.RiskFactor;
-import org.example.refactorings27.Simplification6.ReplaceConditionalLogicWithStrategy.initialCode.UnusedRiskFactors;
 
 public class CapitalStrategy {
-    public double capital() {
-        if (expiry == null && maturity != null)
-            return commitment * duration() * riskFactor();
-        if (expiry != null && maturity == null) {
-            if (getUnusedPercentage() != 1.0) {
-                return commitment * getUnusedPercentage() * duration() * riskFactor();
+    public double capital(Loan loan) {
+        if (loan.getExpiry() == null && loan.getMaturity() != null)
+            return loan.getCommitment() * loan.duration() * riskFactor(loan);
+        if (loan.getExpiry() != null && loan.getMaturity() == null) {
+            if (loan.getUnusedPercentage(loan) != 1.0) {
+                return loan.getCommitment() * loan.getUnusedPercentage(loan) * loan.duration() * riskFactor(loan);
             } else {
-                return (outstandingRiskAmount() * duration() * riskFactor())
-                        + (unusedRiskAmount() * duration() * unusedRiskFactor());
+                return (loan.outstandingRiskAmount(loan) * loan.duration() * riskFactor(loan))
+                        + (loan.unusedRiskAmount(loan) * loan.duration() * unusedRiskFactor(loan));
             }
         }
         return 0.0;
@@ -21,24 +18,13 @@ public class CapitalStrategy {
 
 
 
-    private double riskFactor() {
-        return RiskFactor.getFactors().forRating(riskRating);
+    private double riskFactor(Loan loan) {
+        return RiskFactor.getFactors().forRating(loan.getRiskRating());
     }
 
-    private double getUnusedPercentage() {
-        return unusedPercentage;
-    }
 
-    private double outstandingRiskAmount() {
-        return outstanding;
-    }
-
-    private double unusedRiskAmount() {
-        return (commitment - outstanding);
-    }
-
-    private double unusedRiskFactor() {
-        return UnusedRiskFactors.getFactors().forRating(riskRating);
+    private double unusedRiskFactor(Loan loan) {
+        return UnusedRiskFactors.getFactors().forRating(loan.getRiskRating());
     }
 
 
