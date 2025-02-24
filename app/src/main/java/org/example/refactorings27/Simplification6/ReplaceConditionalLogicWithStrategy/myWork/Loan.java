@@ -12,8 +12,7 @@ public class Loan {
     private List<Payment> payments = new ArrayList<>();
     private Date today = new Date();
     private Date start;
-    private static final long MILLIS_PER_DAY = 86400000;
-    private static final long DAYS_PER_YEAR = 365;
+
     private double riskRating;
     private double unusedPercentage;
 
@@ -54,38 +53,15 @@ public class Loan {
 
 
     public double duration() {
-        if (expiry == null && maturity != null) {
-            return weightedAverageDuration();
-        } else if (expiry != null && maturity == null) {
-            return yearsTo(expiry);
-        }
-        return 0.0;
-    }
-
-    private double weightedAverageDuration() {
-        double duration = 0.0;
-        double weightedAverage = 0.0;
-        double sumOfPayments = 0.0;
-
-        for (Payment payment : payments) {
-            sumOfPayments += payment.getAmount();
-            weightedAverage += yearsTo(payment.getDate()) * payment.getAmount();
-        }
-
-        if (commitment != 0.0) {
-            duration = weightedAverage / sumOfPayments;
-        }
-
-        return duration;
+        return new CapitalStrategy().duration(this);
     }
 
 
 
 
-    private double yearsTo(Date endDate) {
-        Date beginDate = (today == null ? start : today);
-        return (double) ((endDate.getTime() - beginDate.getTime()) / MILLIS_PER_DAY / DAYS_PER_YEAR);
-    }
+
+
+
 
     double outstandingRiskAmount(Loan loan) {
         return loan.getOutstanding();
@@ -128,5 +104,17 @@ public class Loan {
 
     public double getUnusedPercentage() {
         return unusedPercentage;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public Date getToday() {
+        return today;
+    }
+
+    public Date getStart() {
+        return start;
     }
 }
