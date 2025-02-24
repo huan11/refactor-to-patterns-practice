@@ -58,7 +58,7 @@
 
 2 Compose Method [DONE]
 
-18 Replace Conditional Logic with Strategy
+18 Replace Conditional Logic with Strategy [DONE]
 
 16 Move Embellishment to Decorator
 
